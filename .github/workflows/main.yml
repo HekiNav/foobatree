@@ -1,0 +1,16 @@
+on: [push]
+name: Upload to infinityfree on push
+jobs:
+  web-deploy:
+    name: deploy thumbsup
+    runs-on: ubuntu-latest
+    steps:
+    - name: idk man
+      uses: actions/checkout@v4
+    
+    - name: Sync da files 🔥🔥🔥
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ftpupload.net
+        username: if0_37638961
+        password: ${{ secrets.ftp_password }}
