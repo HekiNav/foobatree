@@ -22,7 +22,6 @@ function setup() {
 }
 
 async function checkOnline() {
-
     try {
         res = await fetch(`https://familytree.loophole.site/helloworld`)
         document.getElementById("onlineL").style.backgroundColor = 'green';
@@ -89,6 +88,11 @@ async function register() {
     username = usernameNewAccount.value
     password = registerPassword1.value
     data = await (await fetch(`https://familytree.loophole.site/register?username=${username}&password=${password}`)).text()
+    if(data[0] == "{"){
+        errorText2.style.visibility = "visible"
+        errorText2.textContent = "Error"
+        return 0
+    }
     document.cookie = `token=${data}`
     document.cookie = `username=${username};`;
     document.cookie = `treeUser=empty;path=/`
