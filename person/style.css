@@ -193,6 +193,7 @@ html * {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     overflow-y: scroll;
     display: none;
+    flex-direction: column;
 }
 
 .popup-content {
@@ -236,6 +237,7 @@ textarea {
     padding: 15px;
     font-size: 150%;
     font-weight: bold;
+    border-radius: 10px;
 }
 
 .row {

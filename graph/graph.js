@@ -10,10 +10,8 @@ const requestEnd = treeUser == "empty" ? "" : `&username=${treeUser}`
 document.getElementById("graph").setAttribute("width", screen.availWidth * 0.95)
 document.getElementById("graph").setAttribute("height", screen.availHeight * 0.8)
 console.log(token)
-document.getElementById('focusInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        search()
-    }
+document.getElementById('focusInput').addEventListener('input', function (e) {
+    search()
 });
 
 document.addEventListener('keydown', function (e) {
@@ -353,6 +351,7 @@ async function getData() {
     return await res.json()
 }
 async function graphChildren(id) {
+    svg.call(zoom.transform, d3.zoomIdentity);
     console.log(id)
     const root = idToData(id)
     //that monstrosity removes the childButton element from the root node
@@ -424,6 +423,7 @@ async function graphChildren(id) {
 }
 //
 function graphSpouse(id) {
+    svg.call(zoom.transform, d3.zoomIdentity);
     const person = idToData(id)
     const spouse = idToData(person.spouses[0])
     //removes the spouse button from the person who is being expanded

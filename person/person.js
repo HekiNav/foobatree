@@ -94,7 +94,7 @@ function openSpousePopup() {
 function openDetailsPopup(typeEdit) {
     type = "details"
     popupOverlay.style.display = 'flex';
-    document.getElementById("popup3").style.display = 'block'
+    document.getElementById("popup3").style.display = 'flex'
     if (typeEdit == "birth") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Change birth details</h3>
@@ -153,7 +153,7 @@ function openDetailsPopup(typeEdit) {
 function textPopup(typeEdit) {
     type = "text"
     popupOverlay.style.display = 'flex';
-    document.getElementById("popup3").style.display = 'block'
+    document.getElementById("popup3").style.display = 'flex'
     if (typeEdit == "writing") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Edit writing</h3>
@@ -233,7 +233,7 @@ async function submitForm() {
             const oldParent = await (await fetch(`https://familytree.loophole.site/getProfile?token=${token}&profileUuid=${res.parent1Id}${requestEnd}`)).json()
             oldParent[0].spouses.push(newUuid)
             parent.spouses.push(res.parent1Id)
-            fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.parent1Id}&content=${await encodeURI(JSON.stringify(oldParent[0]))}${requestEnd}`)
+            fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.parent1Id}&content=${encodeURI(JSON.stringify(oldParent[0]))}${requestEnd}`)
         }
 
         parent = JSON.stringify(parent)
@@ -275,18 +275,18 @@ async function submitForm() {
             document.getElementById('popup1').scrollIntoView();
             return 1;
         }
-        gender = document.querySelector('input[name="maleFemale"]:checked').value;
+        const gender = document.querySelector('input[name="maleFemale"]:checked').value;
         var status = document.querySelector('input[name="deadAlive"]:checked').value;
-        firstNames = document.getElementById("FirstNameInput1").value;
-        lastNames = document.getElementById("LastNameInput1").value;
-        patronym = document.getElementById("patronymInput1").value;
-        dateBirth = document.getElementById("BornDateInput1").value;
-        placeBirth = document.getElementById("BornPlaceInput1").value;
-        dateDeath = document.getElementById("DiedDateInput1").value;
-        placeDeath = document.getElementById("DiedPlaceInput1").value;
-        placeBurial = document.getElementById("BuriedPlaceInput1").value;
-        ogName = document.getElementById("OgNameInput1").value;
-        newUuid = randomUUID()
+        const firstNames = document.getElementById("FirstNameInput1").value;
+        const lastNames = document.getElementById("LastNameInput1").value;
+        const patronym = document.getElementById("patronymInput1").value;
+        const dateBirth = document.getElementById("BornDateInput1").value;
+        const placeBirth = document.getElementById("BornPlaceInput1").value;
+        const dateDeath = document.getElementById("DiedDateInput1").value;
+        const placeDeath = document.getElementById("DiedPlaceInput1").value;
+        const placeBurial = document.getElementById("BuriedPlaceInput1").value;
+        const ogName = document.getElementById("OgNameInput1").value;
+        const newUuid = randomUUID()
 
         spouse = JSON.stringify({
             status: status,
@@ -330,17 +330,17 @@ async function submitForm() {
         }
         const gender = document.querySelector('input[name="maleFemale"]:checked').value;
         var status = document.querySelector('input[name="deadAlive"]:checked').value;
-        firstNames = document.getElementById("FirstNameInput1").value;
-        lastNames = document.getElementById("LastNameInput1").value;
-        patronym = document.getElementById("patronymInput1").value;
-        dateBirth = document.getElementById("BornDateInput1").value;
-        placeBirth = document.getElementById("BornPlaceInput1").value;
-        dateDeath = document.getElementById("DiedDateInput1").value;
-        placeDeath = document.getElementById("DiedPlaceInput1").value;
-        placeBurial = document.getElementById("BuriedPlaceInput1").value;
-        ogName = document.getElementById("OgNameInput1").value;
-        newUuid = randomUUID()
-        parent2 = document.getElementById("otherParentSelect").value
+        const firstNames = document.getElementById("FirstNameInput1").value;
+        const lastNames = document.getElementById("LastNameInput1").value;
+        const patronym = document.getElementById("patronymInput1").value;
+        const dateBirth = document.getElementById("BornDateInput1").value;
+        const placeBirth = document.getElementById("BornPlaceInput1").value;
+        const dateDeath = document.getElementById("DiedDateInput1").value;
+        const placeDeath = document.getElementById("DiedPlaceInput1").value;
+        const placeBurial = document.getElementById("BuriedPlaceInput1").value;
+        const ogName = document.getElementById("OgNameInput1").value;
+        const newUuid = randomUUID()
+        const parent2 = document.getElementById("otherParentSelect").value
 
         child = {
             status: status,
@@ -385,23 +385,6 @@ async function submitForm() {
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${newUuid}&content=${encodeURI(JSON.stringify(child))}${requestEnd}`)
     }
     closePopupFunc();
-    /*
-        console.log(newPerson)
-        //if type == child
-        if (res.children == null) {
-            res.children = []
-        }
-        res.children.push(newUuid)
-        console.log(res)
-        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}`)
-        var ele = document.getElementsByClassName('popup-input');
-        for (var i = 0; i < ele.length; i++) {
-            ele[i].value = "";
-        }
-    
-        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${newUuid}&content=${encodeURI(newPerson)}`)
-    */
-    //location.reload()
 }
 function selectExisting() {
     document.getElementById("popup1").style.display = 'none';
@@ -590,7 +573,7 @@ async function showRelatives() {
         </div>`
     }
     else if (res.parent2Id) {
-        document.getElementById("parents-container").innerHTML += personToRelativeLabel(idToData(res.parent2Id))    
+        document.getElementById("parents-container").innerHTML += personToRelativeLabel(idToData(res.parent2Id))
         document.getElementById("parents-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
         <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
         <p style="align-content:center; margin:0;" onclick="openPopupFunc()">ADD PARENT</p>
@@ -604,7 +587,7 @@ async function showRelatives() {
     }
 
     //spouses
-    for(var i = 0; i < res.spouses.length; i++){
+    for (var i = 0; i < res.spouses.length; i++) {
         document.getElementById("spouses-container").innerHTML += personToRelativeLabel(idToData(res.spouses[i]))
     }
     document.getElementById("spouses-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
@@ -613,7 +596,7 @@ async function showRelatives() {
         </div>`
 
     //children
-    for(var i = 0; i < res.children.length; i++){
+    for (var i = 0; i < res.children.length; i++) {
         document.getElementById("children-container").innerHTML += personToRelativeLabel(idToData(res.children[i]))
     }
     document.getElementById("children-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
@@ -624,11 +607,62 @@ async function showRelatives() {
 
 function personToRelativeLabel(person) {
     return `<div class="relative" style="background-color: ${person.gender == "male" ? "#00c4f3" : "#ff72af"};">
-        <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
+        <div class="row">
+            <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
+            <img src="/img/trash.png" style="max-width: 20%; margin-left:auto;" onclick="deleteConnectionPopup('${person.id}')"></img>
+        </div>
         <p style="font-size: 70%; margin-top: 0; margin-left: 5%;">${personToLifespan(person)}</p>
     </div>`
 }
 
+function deleteConnectionPopup(id) {
+    type = "deleteConnection"
+    popupOverlay.style.display = 'flex';
+    document.getElementById("popup3").style.display = 'flex'
+    document.getElementById("submitButton").style.display = 'none';
+    document.getElementById("popup3Content").innerHTML = `
+    <h3>Are you sure you want to delete this connection?</h3>
+    <button class="submit" id="deleteConnectionButton" style="background-color: red;"onclick="deleteConnection('${id}')">DELETE CONNECTION</button>
+    `
+}
 
+async function deleteConnection(id) {
+    console.log(id)
+    if (res.spouses.includes(id)) {
+        let spouse = idToData(id)
+        spouse.spouses.splice(spouse.spouses.indexOf(res.id), 1);
+        res.spouses.splice(res.spouses.indexOf(spouse.id), 1);
+
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.id}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${spouse.id}&content=${encodeURI(JSON.stringify(spouse))}${requestEnd}`)
+    }
+    else if (res.children.includes(id)) {
+        let child = idToData(id)
+        if(child.parent1Id == res.id) child.parent1Id = null;
+        if(child.parent2Id == res.id) child.parent2Id = null;
+        
+        res.children.splice(res.children.indexOf(child.id), 1);
+
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.id}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${child.id}&content=${encodeURI(JSON.stringify(child))}${requestEnd}`)
+    }
+    else if (res.parent1Id == id) {
+        let parent = idToData(id)
+        parent.children.splice(parent.children.indexOf(res.id), 1);
+
+        res.parent1Id = null;
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.id}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${parent.id}&content=${encodeURI(JSON.stringify(parent))}${requestEnd}`)
+    }
+    else if (res.parent2Id == id) {
+        let parent = idToData(id)
+        parent.children.splice(parent.children.indexOf(res.id), 1);
+
+        res.parent2Id = null;
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${res.id}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
+        fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${parent.id}&content=${encodeURI(JSON.stringify(parent))}${requestEnd}`)
+    }
+    closePopupFunc()
+}
 
 main()
