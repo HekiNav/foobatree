@@ -1,0 +1,127 @@
+svg {
+    overflow: hidden;
+    overflow-x: hidden;
+    background-color: #fff8c4;
+}
+#navbar{
+    display: flex;
+    background-color: white;
+    padding: 1vh;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+#logo{
+    height: 5vh;
+    padding-right: 2vw;
+    background-color: #fff;
+}
+#logo:hover{
+    background-color: #ddd;
+}
+.navbutton{
+    padding: 1vh 0;
+    flex-grow: 1;
+    background-color: white;
+    font-size: 2vh;
+    border: 0px solid;
+    border-radius: 0;
+    border-left: 2px solid black;
+}
+.navbutton:hover{
+    background-color: #ddd;
+}
+path {
+    stroke-width: 8px;
+    stroke: #6ac975;
+    marker-end: none;
+}
+
+.node rect {
+    stroke-width: 0;
+}
+
+html *
+{
+    font-family: Montserrat !important;
+}
+
+body {
+    background-color: #fff8c4;
+    margin: 0   ;
+}
+
+.popup {
+    min-width: 25%;
+    max-height: 80%;
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow-y: scroll;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.popup-input {
+    width: 90%;
+    display: block;
+}
+
+.popup button {
+    background-color: #6d6d6d;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+g.male > rect {
+    fill: #00c4f3;
+}
+
+g.female > rect {
+    fill: #ff72af;
+}
+
+g.marriage > rect {
+    width: 0;
+    height: 0;
+}
+
+g p {
+    white-space: normal;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+

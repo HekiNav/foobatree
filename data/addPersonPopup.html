@@ -1,0 +1,37 @@
+<div class="popup-content">
+                <h3 id="popup1Header"></h3>
+                <p></p>
+                <button onclick="selectExisting()">Select an existing person</button>
+                <p></p>
+                <h3 id="error" style="color: red;"></h3>
+                <div>
+                    <input type="radio" style="font-size: 200%;" value="male" name="maleFemale">Male</input>
+                    <input type="radio" value="female" name="maleFemale">Female</input>
+                </div>
+                <div>
+                    <input type="radio" value="living" name="deadAlive" onclick="hideForm(this.value, 1)">Living</input>
+                    <input type="radio" value="dead" name="deadAlive" onclick="hideForm(this.value, 1)" checked="true">Dead</input>
+                </div>
+                
+                <p class="tohide1">First name(s)</p>
+                <input class="popup-input tohide1" type="text" placeholder="Jukka-Pekka Tapani" id="FirstNameInput1">
+                <p>Latest last name(s)</p>
+                <input class="popup-input" type="text" placeholder="Virtanen" id="LastNameInput1">
+                <p>Birth last name(s)</p>
+                <input class="popup-input" type="text" placeholder="Kylänen" id="OgNameInput1">
+                <p class="tohide1">Patronym</p>
+                <input class="popup-input tohide1" type="text" placeholder="Johansson" id="patronymInput1">
+                <p class="tohide1">Date of birth</p>
+                <input class="popup-input tohide1" type="date" placeholder="1776.11.4" id="BornDateInput1">
+                <p class="popup-input tohide1">Place of birth</p>
+                <input class="popup-input tohide1" type="text" placeholder="Chicago, Illinois" id="BornPlaceInput1">
+                <p class="popup-input tohide1">Date of death</p>
+                <input class="popup-input tohide1" type="date" placeholder="1796.11.4" id="DiedDateInput1">
+                <p class="popup-input tohide1">Place of death</p>
+                <input class="popup-input tohide1" type="text" placeholder="Buffalo, New York" id="DiedPlaceInput1">
+                <p class="popup-input tohide1">Cause of death</p>
+                <input class="popup-input tohide1" type="text" placeholder="Spontaneous combustion" id="CauseDiedInput1">
+                <p class="popup-input tohide1">Place of burial</p>
+                <input class="popup-input tohide1" type="text"
+                    placeholder="Merituulentie 17, Finnoo, Espoo, Uusimaa, Finland" id="BuriedPlaceInput1">
+            </div>

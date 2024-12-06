@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Tree | FoobaTree</title>
+
+<link rel="shortcut icon" href="/img/foobatreeicon.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+<body>
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <h3>Submit person</h3>
+                <select onchange="hideForm(this.value)" onclick="hideForm(this.value)" name="status" id="status">
+                    <option value="dead" selected="true" id="deadSelection">Dead</option>
+                    <option value="alive" id="aliveSelection">Living</option>
+                </select>
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+                <p class="tohide">First name(s)</p>
+                <input class="popup-input tohide" type="text" placeholder="Jukka-Pekka Tapani" id="firstNameInput">
+                <p>Latest last name(s)</p>
+                <input class="popup-input" type="text" placeholder="Virtanen" id="lastNameInput">
+                <p>Birth last name(s)</p>
+                <input class="popup-input" type="text" placeholder="Kylänen" id="OgNameInput1">
+                <p class="tohide">Patronym</p>
+                <input class="popup-input tohide" type="text" placeholder="Johansson" id="patronymInput">
+                <p class="tohide">Date of birth</p>
+                <input class="popup-input tohide" type="date" placeholder="1776.11.4" id="bornDateInput">
+                <p class="tohide">Place of birth</p>
+                <input class="popup-input tohide" type="text" placeholder="Chicago, Illinois" id="bornPlaceInput">
+                <p class="tohide">Date of death</p>
+                <input class="popup-input tohide" type="date" placeholder="1796.11.4" id="diedDateInput">
+                <p class="tohide">Place of death</p>
+                <input class="popup-input tohide" type="text" placeholder="Buffalo, New York" id="diedPlaceInput">
+                <p class="tohide">Place of burial</p>
+                <input class="popup-input tohide" type="text"
+                    placeholder="Merituulentie 17, Finnoo, Espoo, Uusimaa, Finland" id="buriedPlaceInput">
+                <p></p>
+                <button onclick="submitForm()">Submit</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="popup-overlay" id="popupOverlay2">
+        <div class="popup" id="popup2">
+            <div class="popup-content">
+                <p>Input name of person</p>
+                <input class="popup-input" type="text" id="focusInput">
+                <p></p>
+                <select name="focusPerson" id="selectFocus">
+                </select>
+                <p></p>
+                <button type="button" id="focuspersonsubmit" onclick=setTarget()>Focus</button>
+            </div>
+        </div>
+    </div>
+    <div class="popup-overlay" id="popupOverlay3">
+        <div class="popup" id="popup3">
+            <div class="popup-content">
+                <p>Input username of person to share tree to</p>
+                <h3 id="error"></h3>
+                <input class="popup-input" type="text" id="shareInput">
+                <p></p>
+                <button type="button" id="sharetree" onclick=shareTree()>Focus</button>
+            </div>
+        </div>
+    </div>
+    <nav id="navbar">
+        <a href="/"><img src="/img/foobatree.png" alt="logo" id="logo"></a>
+    
+    <button type="button" class="navbutton" id="addperson" onclick=openPopupFunc()>Add person</button>
+    <button class="navbutton" id="focusperson" onclick=focusPopup()>Focus on person</button>
+    <button class="navbutton" id="sharetree" onclick=shareTreePopup()>Share tree</button>
+    <button class="navbutton" id="openshared" onclick=openSharedPopup()>Open shared tree</button>
+    <button class="navbutton" id="openshared" onclick=ownTree()>Back to own tree</button>
+    </nav>
+    
+    <svg id="graph">
+        <g transform="translate(20,20)" />
+    </svg>
+</body>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-dtree@2.4.1/dist/dTree.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.1.0/dist/umd/index.min.js"></script>
+<script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js "></script>
+<script src="graph.js"></script>
+</html>

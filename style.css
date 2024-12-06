@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+}
+
+html * {
+    font-family: Montserrat !important;
+}
+
+#background {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("./img/oak.webp");
+    background-size: cover;
+}
+
+#logo{
+    width: 25vw;
+}
+
+.page-content {
+    border-radius: 1vh;
+    padding: 1vh 5vw 3vh 5vw;
+    background-color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    overflow-y: hidden;
+    margin-bottom: 10vh;
+
+}
+
+.login {
+    display: block;
+    overflow-y: hidden;
+}
+
+.register {
+    display: none;
+    overflow-y: hidden;
+}
+
+.submit {
+    background-color: #6d6d6d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.incorrect {
+    color: #780000;
+    font-weight: bold;
+    font-size: 3vh;
+}
