@@ -54,3 +54,13 @@ html * {
     /*https://thedesigncreative.co.uk/why-you-shouldnt-use-vw-vh-or-px-for-font-sizing-a-comprehensive-guide/*/
     font-size: 3vh;
 }
+
+.online {
+    height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  margin-left: 10%;
+}

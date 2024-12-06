@@ -17,6 +17,20 @@ function setup() {
     registerButton.addEventListener("click", register)
     loginPageButton.addEventListener("click", loginPage)
     registerPageButton.addEventListener("click", registerPage)
+
+    checkOnline();
+}
+
+async function checkOnline() {
+
+    try {
+        res = await fetch(`https://familytree.loophole.site/helloworld`)
+        document.getElementById("onlineL").style.backgroundColor = 'green';
+        document.getElementById("onlineR").style.backgroundColor = 'green';
+    }catch (e){
+        document.getElementById("onlineL").style.backgroundColor = 'red';
+        document.getElementById("onlineR").style.backgroundColor = 'red';
+    }
 }
 
 async function auth() {

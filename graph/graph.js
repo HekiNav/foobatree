@@ -287,6 +287,7 @@ function idToData(id) {
 }
 //graohs a persons parents on click
 function graphParents(id) {
+    svg.call(zoom.transform, d3.zoomIdentity);
     const root = idToData(id)
     const parent1 = idToData(root.parent1Id)
     const parent2 = idToData(root.parent2Id)
