@@ -42,7 +42,6 @@ document.addEventListener('keydown', async function (e) {
 })
 
 document.getElementById('existingInput').addEventListener('input', function (e) {
-    console.log("doing it")
     search()
 });
 
