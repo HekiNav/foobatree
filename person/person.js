@@ -41,7 +41,8 @@ document.addEventListener('keydown', async function (e) {
     }
 })
 
-document.getElementById('existingInput').addEventListener('onchange', function (e) {
+document.getElementById('existingInput').addEventListener('input', function (e) {
+    console.log("doing it")
     search()
 });
 
@@ -584,44 +585,51 @@ async function showRelatives() {
     }
     else if (res.parent1Id) {
         document.getElementById("parents-container").innerHTML += personToRelativeLabel(idToData(res.parent1Id))
+        document.getElementById("parents-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
+        <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
+        <p style="align-content:center; margin:0;" onclick="openPopupFunc()">ADD PARENT</p>
+        </div>`
     }
     else if (res.parent2Id) {
         document.getElementById("parents-container").innerHTML += personToRelativeLabel(idToData(res.parent2Id))    
+        document.getElementById("parents-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
+        <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
+        <p style="align-content:center; margin:0;" onclick="openPopupFunc()">ADD PARENT</p>
+        </div>`
+    }
+    else {
+        document.getElementById("parents-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
+        <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
+        <p style="align-content:center; margin:0;" onclick="openPopupFunc()">ADD PARENT</p>
+        </div>`
     }
 
     //spouses
     for(var i = 0; i < res.spouses.length; i++){
         document.getElementById("spouses-container").innerHTML += personToRelativeLabel(idToData(res.spouses[i]))
     }
+    document.getElementById("spouses-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
+        <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
+        <p style="align-content:center; margin:0;" onclick="openSpousePopup()">ADD SPOUSE</p>
+        </div>`
 
     //children
     for(var i = 0; i < res.children.length; i++){
         document.getElementById("children-container").innerHTML += personToRelativeLabel(idToData(res.children[i]))
     }
+    document.getElementById("children-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
+        <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
+        <p style="align-content:center; margin:0;" onclick="openChildPopup()">ADD CHILD</p>
+        </div>`
 }
 
 function personToRelativeLabel(person) {
     return `<div class="relative" style="background-color: ${person.gender == "male" ? "#00c4f3" : "#ff72af"};">
-        <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;">${person.name}</p>
+        <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
         <p style="font-size: 70%; margin-top: 0; margin-left: 5%;">${personToLifespan(person)}</p>
     </div>`
 }
 
-//returns the 1971 - 2009 thing for a person
-function personToLifespan(person) {
-    if (person.status == "alive") {
-        return `Living`
-    }
-    if (person.deathDate != "" && person.birthDate != "") {
-        return `${person.birthDate.slice(0, 4)} - ${person.deathDate.slice(0, 4)}`
-    }
-    if (person.birthDate != "") {
-        return `${person.birthDate.slice(0, 4)} - Deceased`
-    }
-    if (person.deathDate != "") {
-        return ` - ${person.deathDate.slice(0, 4)}`
-    }
-    return ""
-}
+
 
 main()

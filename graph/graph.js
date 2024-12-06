@@ -184,10 +184,7 @@ async function shareTree() {
         document.getElementById("error").textContent = "USER NOT FOUND"
     }
 }
-//opens the person page on click 
-function openPerson(id) {
-    window.open(`../person/?uuid=${id}${requestEnd}`, "_blank")
-}
+
 //opens the tree of another user
 function openSharedTree() {
     const treeUser = document.getElementById("sharedList").value
@@ -448,28 +445,13 @@ function graphSpouse(id) {
 function nodeOnScreen(id) {
     return Object.keys(g._nodes).includes(id)
 }
-//returns the 1971 - 2009 thing for a person
-function personToLifespan(person) {
-    if (person.status == "alive") {
-        return `<p>Living</p>`
-    }
-    if (person.deathDate != "" && person.birthDate != "") {
-        return `<p>${person.birthDate.slice(0, 4)} - ${person.deathDate.slice(0, 4)}</p>`
-    }
-    if (person.birthDate != "") {
-        return `<p>${person.birthDate.slice(0, 4)} - Deceased</p>`
-    }
-    if (person.deathDate != "") {
-        return `<p> - ${person.deathDate.slice(0, 4)}</p>`
-    }
-    return ""
-}
+
 //returns the html label in the tree for a person based on their uuid
 function idToLabel(uuid) {
     const person = idToData(uuid)
     return `<div style="min-height: 200px; width: 160px;">
     <img style="width: 120px; min-height: 100px; align-self: center; display: block; margin-left: auto;margin-right: auto;" src="${person.pic ? person.pic : "https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg="}"></img>
-    <p onclick="openPerson('${person.id}')">${person.name}</p> ${personToLifespan(person)} 
+    <p onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p> ${personToLifespan(person)} 
     ${person.lore ? `<p style="font-style: italic;">${person.lore}</p>` : ""}
     ${toShowParentsButton(person) ? `<input type='button' id="parentButton" onclick="graphParents('${person.id}')" value="P">` : ""} 
     ${(person.children.length > 1 ? true : !nodeOnScreen(person.children[0]) && person.children.length != 0) ? `<input type='button' id="childButton" onclick="graphChildren('${person.id}')" value="C">` : ""}

@@ -21,7 +21,7 @@ html * {
 
 .page-content {
     border-radius: 1vh;
-    padding: 1vh 5vw 3vh 5vw;
+    padding: 1vh 3vw 3vh 3vw;
     background-color: white;
     text-align: center;
     font-family: Arial, sans-serif;
@@ -51,5 +51,6 @@ html * {
 .incorrect {
     color: #780000;
     font-weight: bold;
+    /*https://thedesigncreative.co.uk/why-you-shouldnt-use-vw-vh-or-px-for-font-sizing-a-comprehensive-guide/*/
     font-size: 3vh;
 }
