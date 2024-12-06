@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<meta charset="utf-8">
-<title>Tree | FoobaTree</title>
 
-<link rel="shortcut icon" href="/img/foobatreeicon.png" type="image/x-icon">
+<head>
+    <html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="/img/foobatreeicon.png" type="image/x-icon">
+</head>
+
 <link rel="stylesheet" href="style.css">
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
@@ -72,14 +76,14 @@
     </div>
     <nav id="navbar">
         <a href="/"><img src="/img/foobatree.png" alt="logo" id="logo"></a>
-    
-    <button type="button" class="navbutton" id="addperson" onclick=openPopupFunc()>Add person</button>
-    <button class="navbutton" id="focusperson" onclick=focusPopup()>Focus on person</button>
-    <button class="navbutton" id="sharetree" onclick=shareTreePopup()>Share tree</button>
-    <button class="navbutton" id="openshared" onclick=openSharedPopup()>Open shared tree</button>
-    <button class="navbutton" id="openshared" onclick=ownTree()>Back to own tree</button>
+
+        <button type="button" class="navbutton" id="addperson" onclick=openPopupFunc()>Add person</button>
+        <button class="navbutton" id="focusperson" onclick=focusPopup()>Focus on person</button>
+        <button class="navbutton" id="sharetree" onclick=shareTreePopup()>Share tree</button>
+        <button class="navbutton" id="openshared" onclick=openSharedPopup()>Open shared tree</button>
+        <button class="navbutton" id="openshared" onclick=ownTree()>Back to own tree</button>
     </nav>
-    
+
     <svg id="graph">
         <g transform="translate(20,20)" />
     </svg>
@@ -91,4 +95,5 @@
 <script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
 <script src=" https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js "></script>
 <script src="graph.js"></script>
+
 </html>
