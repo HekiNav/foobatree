@@ -285,7 +285,7 @@ function idToData(id) {
 }
 //graohs a persons parents on click
 function graphParents(id) {
-    svg.call(zoom.transform, d3.zoomIdentity);
+    
     const root = idToData(id)
     const parent1 = idToData(root.parent1Id)
     const parent2 = idToData(root.parent2Id)
@@ -351,7 +351,7 @@ async function getData() {
     return await res.json()
 }
 async function graphChildren(id) {
-    svg.call(zoom.transform, d3.zoomIdentity);
+    
     console.log(id)
     const root = idToData(id)
     //that monstrosity removes the childButton element from the root node
@@ -423,7 +423,7 @@ async function graphChildren(id) {
 }
 //
 function graphSpouse(id) {
-    svg.call(zoom.transform, d3.zoomIdentity);
+    
     const person = idToData(id)
     const spouse = idToData(person.spouses[0])
     //removes the spouse button from the person who is being expanded
