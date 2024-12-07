@@ -295,15 +295,27 @@ function graphParents(id) {
             console.log(2)
             //set a node for the parents' marriage
             g.setNode(`${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, { label: "", class: "marriage" })
-
-            g.setEdge(root.parent1Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
-                arrowhead: "undirected",
-                curve: d3.curveStepBefore
-            })
-            g.setEdge(root.parent2Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
-                arrowhead: "undirected",
-                curve: d3.curveStepBefore
-            })
+            if(parent1.gender == "male") {
+                g.setEdge(root.parent1Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
+                    arrowhead: "undirected",
+                    curve: d3.curveStepBefore
+                })
+                g.setEdge(root.parent2Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
+                    arrowhead: "undirected",
+                    curve: d3.curveStepBefore
+                })
+            } else {
+                g.setEdge(root.parent2Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
+                    arrowhead: "undirected",
+                    curve: d3.curveStepBefore
+                })
+                g.setEdge(root.parent1Id, `${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, {
+                    arrowhead: "undirected",
+                    curve: d3.curveStepBefore
+                })
+            }
+            
+            
             g.setEdge(`${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, root.id, {
                 arrowhead: "undirected",
                 curve: d3.curveStepBefore

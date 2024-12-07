@@ -450,6 +450,7 @@ async function main() {
         .then(response => response.json())
     res = res[0];
     document.title = res.name;
+    
     addPersonPopup = await (await fetch("../data/addPersonPopup.html")).text()
     document.getElementById("popup1").innerHTML = addPersonPopup;
     document.getElementById("profile-pic").src = res.pic ? res.pic : document.getElementById("profile-pic").src
@@ -457,6 +458,7 @@ async function main() {
     relativeCheck();
     showRelatives();
 
+    document.getElementById("children-relation-header").textContent += ` (${res.children.length})`
     document.getElementById("name-text").textContent = res.name
     document.getElementById("birthDate").textContent = res.birthDate
     document.getElementById("birthPlace").textContent = res.birthPlace
@@ -605,7 +607,7 @@ async function showRelatives() {
 function personToRelativeLabel(person) {
     return `<div class="relative" style="background-color: ${person.gender == "male" ? "#00c4f3" : "#ff72af"};">
         <div class="row">
-            <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
+            <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%; margin-top:" class="relative-text" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
             <img src="/img/trash.png" style="max-width: 20%; margin-left:auto; height:fit-content;" onclick="deleteConnectionPopup('${person.id}')"></img>
         </div>
         <p style="font-size: 70%; margin-top: 0; margin-left: 5%;">${personToLifespan(person)}</p>

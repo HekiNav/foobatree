@@ -120,19 +120,22 @@ html * {
 
 .relation-container {
     width: 30%;
-    background-color: gainsboro;
+    background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    outline: solid black 2px;
 }
 
 .relation-header {
     margin-left: 5%;
     margin-top: 5%;
-    font-size: 150%;
+    font-size: 140%;
     font-weight: bold;
     margin-bottom: 0;
+    overflow-x: hidden;
+    text-wrap: nowrap;
 }
 
 .relative {
@@ -141,6 +144,7 @@ html * {
     margin-right: 3%;
     margin-bottom: 1%;
     border-radius: 10px;
+    padding: 0;
     display: flex;
     flex-direction: column;
 }
