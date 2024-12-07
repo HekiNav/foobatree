@@ -23,7 +23,7 @@ function setup() {
 
 async function checkOnline() {
     try {
-        res = await fetch(`https://familytree.loophole.site/helloworld`, { signal: AbortSignal.timeout(3000)})
+        res = await fetch(`https://familytree.loophole.site/helloworld`, { signal: AbortSignal.timeout(1000)})
         document.getElementById("onlineL").style.backgroundColor = 'green';
         document.getElementById("onlineR").style.backgroundColor = 'green';
     }catch (e){

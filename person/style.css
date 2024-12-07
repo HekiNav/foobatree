@@ -60,7 +60,6 @@ html * {
 }
 
 .writing {
-    white-space: pre-wrap;
     grid-area: 2 / 3 / 6 / 5;
     background-color: #ffffff;
     place-content: top;
@@ -71,7 +70,6 @@ html * {
 }
 
 .sources {
-    white-space: pre-wrap;
     grid-column: 5 / 7;
     grid-row: 2 / 6;
     background-color: #ffffff;
@@ -215,11 +213,12 @@ html * {
 }
 
 .text-input {
-    width: 90%;
+    width: 66vh;
+    text-wrap: wrap;
 }
 
-textarea {
-    white-space: pre
+#writingText, #sourcesText {
+    white-space: pre-wrap;
 }
 
 .addperson {

@@ -157,17 +157,17 @@ function textPopup(typeEdit) {
     if (typeEdit == "writing") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Edit writing</h3>
-        <textarea class="text-input" type="text" placeholder="" id="WritingInput" rows=20 ">
+        <textarea class="text-input" type="text" placeholder="" id="WritingInput" rows="20">
         `
         console.log(res.writing)
-        document.getElementById("WritingInput").value = res.writing
+        document.getElementById("WritingInput").value = res.writing.replace("%79/", "+")
     }
     if (typeEdit == "sources") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Edit sources</h3>
-        <textarea class="text-input" type="text" placeholder="" id="SourcesInput" rows=20>
+        <textarea class="text-input" type="text" placeholder="" id="SourcesInput" rows="20">
         `
-        document.getElementById("SourcesInput").value = res.sources
+        document.getElementById("SourcesInput").value = res.sources.replace("%79/", "+")
     }
 }
 function closePopupFunc() {
@@ -265,8 +265,9 @@ async function submitForm() {
     if (type == "text") {
         console.log("YES")
         console.log(res.sources)
-        res.writing = document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing
-        res.sources = document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources
+        res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replace("+", "%79/")
+        res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replace("+", "%79/")
+        console.log(res.sources)
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
     }
     if (type == "spouse") {
@@ -475,8 +476,8 @@ async function main() {
     document.getElementById("deathPlace").textContent = res.deathPlace
     document.getElementById("deathCause").textContent = res.causeOfDeath
     document.getElementById("burialPlace").textContent = res.burialPlace
-    document.getElementById("writingText").textContent = res.writing
-    document.getElementById("sourcesText").textContent = res.sources
+    document.getElementById("writingText").textContent = res.writing.replace("%79/", "+")
+    document.getElementById("sourcesText").textContent = res.sources.replace("%79/", "+")
     document.getElementById("gender").textContent = res.gender.charAt(0).toUpperCase() + res.gender.slice(1)
 
 }
