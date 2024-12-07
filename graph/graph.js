@@ -77,7 +77,7 @@ function submitForm() {
         causeOfDeath: "",
         writing: "",
         sources: "",
-        name: ltrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
+        name: btrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
         parent1Id: null,
         parent2Id: null,
     })
@@ -137,12 +137,6 @@ function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
-}
-//used for removing spaces from front of names
-//probably should also return them from the end of strigs
-function ltrim(str) {
-    if (!str) return str;
-    return str.replace(/^\s+/g, '');
 }
 //opens the popup where you can share your tree to others
 function shareTreePopup() {

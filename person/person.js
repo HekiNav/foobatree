@@ -51,10 +51,6 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-function ltrim(str) {
-    if (!str) return str;
-    return str.replaceAll(/^\s+/g, '');
-}
 //opens parent adding popup
 function openPopupFunc() {
     livingCheck()
@@ -104,6 +100,11 @@ function openDetailsPopup(typeEdit) {
         <input class="popup-input" type="text" placeholder="" id="BirthPlaceInput" value="${res.birthPlace}">
         <p>Gender</p>
         <input class="popup-input" type="text" placeholder="" id="GenderInput" value="${res.gender}">
+        <br></br>
+        <div>
+            <input type="radio" value="living" name="changeStatus" ${res.status == "living" ? "checked" : ""}>Living</input>
+            <input type="radio" value="dead" name="changeStatus" ${res.status == "dead" ? "checked" : ""}>Dead</input>
+        </div>
         `
     }
     if (typeEdit == "death") {
@@ -126,7 +127,7 @@ function openDetailsPopup(typeEdit) {
     }
     if (typeEdit == "name") {
         document.getElementById("popup3Content").innerHTML = `
-        <h3>Change death details</h3>
+        <h3>Change name details</h3>
         <p>First name(s)</p>
         <input class="popup-input" type="text" id="FirstNameInput" value="${res.firstName}">
         <p>Last name(s)</p>
@@ -221,7 +222,7 @@ async function submitForm() {
             causeOfDeath: "",
             writing: "",
             sources: "",
-            name: ltrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
+            name: btrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
             parent1Id: null,
             parent2Id: null,
         }
@@ -256,16 +257,15 @@ async function submitForm() {
         res.ogName = document.getElementById("OgNameInput") ? document.getElementById("OgNameInput").value : res.ogName
         res.patronym = document.getElementById("PatronymInput") ? document.getElementById("PatronymInput").value : res.patronym
         res.lore = document.getElementById("LoreInput") ? document.getElementById("LoreInput").value : res.lore
-        res.name = ltrim(`${res.firstName} ${res.patronym} ${res.lastName}${res.ogName != "" ? ` (${res.ogName})` : ""}`)
+        res.name = btrim(`${res.firstName} ${res.patronym} ${res.lastName}${res.ogName != "" ? ` (${res.ogName})` : ""}`)
         res.gender = document.getElementById("GenderInput") ? document.getElementById("GenderInput").value : res.gender;
         res.pic = document.getElementById("img-input") ? document.getElementById("img-input").value : res.pic;
+        res.status = document.querySelector('input[name="changeStatus"]') ? document.querySelector('input[name="changeStatus"]:checked').value : res.status
         console.log(res)
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
     }
     if (type == "text") {
         console.log("YES")
-        console.log(res.sources)
-        console.log(document.getElementById("SourcesInput").value)
         res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replaceAll("+", "%79")
         res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replaceAll("+", "%79")
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
@@ -307,7 +307,7 @@ async function submitForm() {
             causeOfDeath: "",
             writing: "",
             sources: "",
-            name: ltrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
+            name: btrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
             parent1Id: null,
             parent2Id: null,
         })
@@ -361,7 +361,7 @@ async function submitForm() {
             causeOfDeath: "",
             writing: "",
             sources: "",
-            name: ltrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
+            name: btrim(`${firstNames} ${patronym} ${lastNames}${ogName != "" ? ` (${ogName})` : ""}`),
             parent1Id: res.id,
             parent2Id: parent2,
         }
