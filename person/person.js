@@ -53,7 +53,7 @@ function getCookie(name) {
 
 function ltrim(str) {
     if (!str) return str;
-    return str.replace(/^\s+/g, '');
+    return str.replaceAll(/^\s+/g, '');
 }
 //opens parent adding popup
 function openPopupFunc() {
@@ -160,14 +160,14 @@ function textPopup(typeEdit) {
         <textarea class="text-input" type="text" placeholder="" id="WritingInput" rows="20">
         `
         console.log(res.writing)
-        document.getElementById("WritingInput").value = res.writing.replace("%79/", "+")
+        document.getElementById("WritingInput").value = res.writing.replaceAll("%79", "+")
     }
     if (typeEdit == "sources") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Edit sources</h3>
         <textarea class="text-input" type="text" placeholder="" id="SourcesInput" rows="20">
         `
-        document.getElementById("SourcesInput").value = res.sources.replace("%79/", "+")
+        document.getElementById("SourcesInput").value = res.sources.replaceAll("%79", "+")
     }
 }
 function closePopupFunc() {
@@ -265,9 +265,9 @@ async function submitForm() {
     if (type == "text") {
         console.log("YES")
         console.log(res.sources)
-        res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replace("+", "%79/")
-        res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replace("+", "%79/")
-        console.log(res.sources)
+        console.log(document.getElementById("SourcesInput").value)
+        res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replaceAll("+", "%79")
+        res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replaceAll("+", "%79")
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
     }
     if (type == "spouse") {
@@ -438,7 +438,7 @@ function hideForm(status, popupNumber) {
 }
 
 function randomUUID() {
-    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+    return "10000000-1000-4000-8000-100000000000".replaceAll(/[018]/g, c =>
         (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
 }
@@ -476,8 +476,8 @@ async function main() {
     document.getElementById("deathPlace").textContent = res.deathPlace
     document.getElementById("deathCause").textContent = res.causeOfDeath
     document.getElementById("burialPlace").textContent = res.burialPlace
-    document.getElementById("writingText").textContent = res.writing.replace("%79/", "+")
-    document.getElementById("sourcesText").textContent = res.sources.replace("%79/", "+")
+    document.getElementById("writingText").textContent = res.writing.replaceAll("%79", "+")
+    document.getElementById("sourcesText").textContent = res.sources.replaceAll("%79", "+")
     document.getElementById("gender").textContent = res.gender.charAt(0).toUpperCase() + res.gender.slice(1)
 
 }
@@ -597,9 +597,17 @@ async function showRelatives() {
         </div>`
 
     //children
+    let childArray = [];
     for (var i = 0; i < res.children.length; i++) {
-        document.getElementById("children-container").innerHTML += personToRelativeLabel(idToData(res.children[i]))
+         childArray.push(idToData(res.children[i]));
     }
+    console.log(childArray)
+    childArray.sort((a,b) => a.birthDate.slice(0, 4) - b.birthDate.slice(0, 4));
+    console.log(childArray)
+    for (var i = 0; i < childArray.length; i++) {
+        document.getElementById("children-container").innerHTML += personToRelativeLabel(childArray[i]);
+   }
+    
     document.getElementById("children-container").innerHTML += `<div class="row add-button" style="font-weight: 1000">
         <p style="font-size: 150%; align-content:center; margin: 0; margin-left: 5%;">+</p>
         <p style="align-content:center; margin:0;" onclick="openChildPopup()">ADD CHILD</p>
