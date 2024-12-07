@@ -11,7 +11,7 @@ document.getElementById("graph").setAttribute("width", screen.availWidth * 0.95)
 document.getElementById("graph").setAttribute("height", screen.availHeight * 0.8)
 console.log(token)
 document.getElementById('focusInput').addEventListener('input', function (e) {
-    search()
+    search(data)
 });
 
 document.addEventListener('keydown', function (e) {
@@ -111,21 +111,7 @@ function focusPopup() {
     document.getElementById("popup2").style.display = 'block';
     document.getElementById("popupOverlay2").style.display = 'block';
 }
-//searches people in the tree for focus
-function search() {
-    document.getElementById("selectFocus").innerHTML = ""
-    const text = document.getElementById("focusInput").value
-    let miniSearch = new MiniSearch({
-        fields: ['name'], // fields to index for full-text search
-        storeFields: ['name', 'id'] // fields to return with search results
-    })
-    miniSearch.addAll(data)
-    let results = miniSearch.search(text)
-    console.log(results)
-    for (var i = 0; i < results.length; i++) {
-        document.getElementById("selectFocus").innerHTML += `<option value="${results[i].id}">${results[i].name}</option>`
-    }
-}
+
 //sets the trees focus to a person
 function setTarget() {
     const value = document.getElementById("selectFocus").value
@@ -218,7 +204,7 @@ main(treeUser)
 //graphs the first guy their parents and gets some data for some reason
 async function main(user) {
     data = await getData(user)
-    if(data.length == 0) return 1
+    if (data.length == 0) return 1
     //logic for selecting the person in focus
     let target = getCookie("target")
     if (!target) target = data[0].id
@@ -232,7 +218,7 @@ async function main(user) {
     } else {
         var rootUser = i;
     }
-    
+
     const root = idToData(data[rootUser].id)
     const parent1 = idToData(root.parent1Id)
     const parent2 = idToData(root.parent2Id)
@@ -261,12 +247,22 @@ async function main(user) {
             curve: d3.curveStepBefore
         })
     } else if (parent1) {
-        g.setEdge(parent1.id, root.id, {
+        g.setNode(`${parent1.id}childNode`, { class: "marriage", label: "" })
+        g.setEdge(parent1.id, `${parent1.id}childNode`, {
+            arrowhead: "undirected",
+            curve: d3.curveStepBefore
+        })
+        g.setEdge(`${parent1.id}childNode`, root.id, {
             arrowhead: "undirected",
             curve: d3.curveStepBefore
         })
     } else if (parent2) {
-        g.setEdge(parent2.id, root.id, {
+        g.setNode(`${parent2.id}childNode`, { class: "marriage", label: "" })
+        g.setEdge(parent2.id, `${parent2.id}childNode`, {
+            arrowhead: "undirected",
+            curve: d3.curveStepBefore
+        })
+        g.setEdge(`${parent2.id}childNode`, root.id, {
             arrowhead: "undirected",
             curve: d3.curveStepBefore
         })
@@ -279,7 +275,7 @@ function idToData(id) {
 }
 //graohs a persons parents on click
 function graphParents(id) {
-    
+
     const root = idToData(id)
     const parent1 = idToData(root.parent1Id)
     const parent2 = idToData(root.parent2Id)
@@ -291,8 +287,12 @@ function graphParents(id) {
     if (parent2) g.setNode(parent2.id, { labelType: "html", label: idToLabel(parent2.id), class: parent2.gender })
     //if both parents exist
     if (parent1 && parent2) {
+        console.log(1)
         //if the parents have children together
+        console.log(parent1)
+        console.log(parent2)
         if (parent1.spouses.includes(parent2.id)) {
+            console.log(2)
             //set a node for the parents' marriage
             g.setNode(`${(parent1.id + parent2.id).split('').sort().join('')}ParentMarriage`, { label: "", class: "marriage" })
 
@@ -325,13 +325,22 @@ function graphParents(id) {
         }
         //if only parent1 exists
     } else if (parent1) {
-        g.setEdge(parent1.id, root.id, {
+        g.setNode(`${parent1.id}childNode`, { class: "marriage", label: "" })
+        g.setEdge(parent1.id, `${parent1.id}childNode`, {
             arrowhead: "undirected",
             curve: d3.curveStepBefore
         })
-        //if only parent2 exists
+        g.setEdge(`${parent1.id}childNode`, root.id, {
+            arrowhead: "undirected",
+            curve: d3.curveStepBefore
+        })
     } else if (parent2) {
-        g.setEdge(parent2.id, root.id, {
+        g.setNode(`${parent2.id}childNode`, { class: "marriage", label: "" })
+        g.setEdge(parent2.id, `${parent2.id}childNode`, {
+            arrowhead: "undirected",
+            curve: d3.curveStepBefore
+        })
+        g.setEdge(`${parent2.id}childNode`, root.id, {
             arrowhead: "undirected",
             curve: d3.curveStepBefore
         })
@@ -345,7 +354,6 @@ async function getData() {
     return await res.json()
 }
 async function graphChildren(id) {
-    
     console.log(id)
     const root = idToData(id)
     //that monstrosity removes the childButton element from the root node
@@ -399,14 +407,24 @@ async function graphChildren(id) {
         }
         //if parent 1 happens to exist
         else if (child.parent1Id) {
-            g.setEdge(child.parent1Id, child.id, {
+            g.setNode(`${child.parent1Id}childNode`, { class: "marriage", label: "" })
+            g.setEdge(child.parent1Id, `${child.parent1Id}childNode`, {
+                arrowhead: "undirected",
+                curve: d3.curveStepBefore
+            })
+            g.setEdge(`${child.parent1Id}childNode`, child.id, {
                 arrowhead: "undirected",
                 curve: d3.curveStepBefore
             })
         }
         //if parent 2 happens to exist
         else if (child.parent2Id) {
-            g.setEdge(child.parent2Id, child.id, {
+            g.setNode(`${child.parent2Id}childNode`, { class: "marriage", label: "" })
+            g.setEdge(child.parent2Id, `${child.parent2Id}childNode`, {
+                arrowhead: "undirected",
+                curve: d3.curveStepBefore
+            })
+            g.setEdge(`${child.parent2Id}childNode`, child.id, {
                 arrowhead: "undirected",
                 curve: d3.curveStepBefore
             })
@@ -417,7 +435,7 @@ async function graphChildren(id) {
 }
 //
 function graphSpouse(id) {
-    
+
     const person = idToData(id)
     const spouse = idToData(person.spouses[0])
     //removes the spouse button from the person who is being expanded
@@ -472,4 +490,40 @@ function toShowParentsButton(person) {
     if (person.parent2Id) {
         return !nodeOnScreen(person.parent2Id)
     }
+}
+
+async function checkGraphUpdates() {
+    oldTree = data;
+    data = await getData(treeUser)
+
+    const oldIds = oldTree.map(a => a.id);
+
+    data.forEach(element => {
+        if (!oldIds.includes(element.id)) {
+            console.log(element)
+            if (element.children.length != 0) {
+                element.children.forEach(child => {
+                    childLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(child)].label
+                    childLabel = childLabel.slice(0, childLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphParents('${element.id}')" value="P">` + "</div>"
+                    g.setNode(child, { labelType: "html", label: childLabel })
+                })
+            } else if (element.spouses.length == 1) {
+                spouseLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.spouses[0])].label
+                spouseLabel = spouseLabel.slice(0, spouseLabel.length - 6) + `<input type='button' id="spouseButton" onclick="graphSpouse('${element.id}')" value="S">` + "</div>"
+                g.setNode(element.spouses[0], { labelType: "html", label: spouseLabel })
+            }
+            if(element.parent1Id){
+                parentLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.parent1Id)].label
+                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.id}')" value="C">` + "</div>"
+                g.setNode(element.parent1Id, { labelType: "html", label: parentLabel })
+            }
+            if(element.parent2Id){
+                parentLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.parent2Id)].label
+                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.id}')" value="C">` + "</div>"
+                g.setNode(element.parent2Id, { labelType: "html", label: parentLabel })
+            }
+
+        }
+    });
+    render(inner, g)
 }

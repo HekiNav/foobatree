@@ -42,7 +42,7 @@ document.addEventListener('keydown', async function (e) {
 })
 
 document.getElementById('existingInput').addEventListener('input', function (e) {
-    search()
+    search(tree)
 });
 
 function getCookie(name) {
@@ -246,6 +246,7 @@ async function submitForm() {
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=test&content=${requestEnd}`)
     }
     if (type == "details") {
+        //logic here is if the form exists, use it's vlaue, otherwise use the saved one
         res.birthDate = document.getElementById("BirthDateInput") ? document.getElementById("BirthDateInput").value : res.birthDate
         res.birthPlace = document.getElementById("BirthPlaceInput") ? document.getElementById("BirthPlaceInput").value : res.birthPlace
         res.deathDate = document.getElementById("DeathDateInput") ? document.getElementById("DeathDateInput").value : res.deathDate
@@ -442,20 +443,7 @@ function randomUUID() {
         (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
     );
 }
-function search() {
-    document.getElementById("selectExisting").innerHTML = ""
-    text = document.getElementById("existingInput").value
-    let miniSearch = new MiniSearch({
-        fields: ['name'], // fields to index for full-text search
-        storeFields: ['name', 'id'] // fields to return with search results
-    })
-    miniSearch.addAll(tree)
-    let results = miniSearch.search(text)
-    console.log(results)
-    for (var i = 0; i < results.length; i++) {
-        document.getElementById("selectExisting").innerHTML += `<option value="${results[i].id}">${results[i].name}</option>`
-    }
-}
+
 async function main() {
     console.log(treeUser)
     res = await fetch(`https://familytree.loophole.site/getProfile?token=${token}&profileUuid=${uuid}${requestEnd}`)
