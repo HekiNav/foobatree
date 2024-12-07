@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow: hidden;
 }
 
 html * {
@@ -77,6 +78,7 @@ html * {
     padding: 8px;
     border: 2px solid black;
     border-top: 4px solid black;
+    overflow-y: scroll;
 }
 
 .relations {
@@ -219,6 +221,7 @@ html * {
 
 #writingText, #sourcesText {
     white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .addperson {

@@ -504,22 +504,22 @@ async function checkGraphUpdates() {
             if (element.children.length != 0) {
                 element.children.forEach(child => {
                     childLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(child)].label
-                    childLabel = childLabel.slice(0, childLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphParents('${element.id}')" value="P">` + "</div>"
+                    childLabel = childLabel.slice(0, childLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphParents('${child}')" value="P">` + "</div>"
                     g.setNode(child, { labelType: "html", label: childLabel })
                 })
             } else if (element.spouses.length == 1) {
                 spouseLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.spouses[0])].label
-                spouseLabel = spouseLabel.slice(0, spouseLabel.length - 6) + `<input type='button' id="spouseButton" onclick="graphSpouse('${element.id}')" value="S">` + "</div>"
+                spouseLabel = spouseLabel.slice(0, spouseLabel.length - 6) + `<input type='button' id="spouseButton" onclick="graphSpouse('${element.spouses[0]}')" value="S">` + "</div>"
                 g.setNode(element.spouses[0], { labelType: "html", label: spouseLabel })
             }
             if(element.parent1Id){
                 parentLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.parent1Id)].label
-                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.id}')" value="C">` + "</div>"
+                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.parent1Id}')" value="C">` + "</div>"
                 g.setNode(element.parent1Id, { labelType: "html", label: parentLabel })
             }
             if(element.parent2Id){
                 parentLabel = Object.values(g._nodes)[Object.keys(g._nodes).indexOf(element.parent2Id)].label
-                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.id}')" value="C">` + "</div>"
+                parentLabel = parentLabel.slice(0, parentLabel.length - 6) + `<input type='button' id="parentButton" onclick="graphChildren('${element.parent2Id}')" value="C">` + "</div>"
                 g.setNode(element.parent2Id, { labelType: "html", label: parentLabel })
             }
 

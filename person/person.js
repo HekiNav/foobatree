@@ -41,7 +41,7 @@ document.addEventListener('keydown', async function (e) {
     }
 })
 
-document.getElementById('existingInput').addEventListener('input', function (e) {
+document.getElementById('focusInput').addEventListener('input', function (e) {
     search(tree)
 });
 
@@ -161,14 +161,14 @@ function textPopup(typeEdit) {
         <textarea class="text-input" type="text" placeholder="" id="WritingInput" rows="20">
         `
         console.log(res.writing)
-        document.getElementById("WritingInput").value = res.writing.replaceAll("%79", "+")
+        document.getElementById("WritingInput").value = res.writing.replaceAll("%79", "+").replaceAll("%89", "&")
     }
     if (typeEdit == "sources") {
         document.getElementById("popup3Content").innerHTML = `
         <h3>Edit sources</h3>
         <textarea class="text-input" type="text" placeholder="" id="SourcesInput" rows="20">
         `
-        document.getElementById("SourcesInput").value = res.sources.replaceAll("%79", "+")
+        document.getElementById("SourcesInput").value = res.sources.replaceAll("%79", "+").replaceAll("%89", "&")
     }
 }
 function closePopupFunc() {
@@ -267,8 +267,8 @@ async function submitForm() {
     }
     if (type == "text") {
         console.log("YES")
-        res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replaceAll("+", "%79")
-        res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replaceAll("+", "%79")
+        res.writing = (document.getElementById("WritingInput") ? document.getElementById("WritingInput").value : res.writing).replaceAll("+", "%79").replaceAll("&", "%89")
+        res.sources = (document.getElementById("SourcesInput") ? document.getElementById("SourcesInput").value : res.sources).replaceAll("+", "%79").replaceAll("&", "%89")
         fetch(`https://familytree.loophole.site/setProfile?token=${token}&profileUuid=${uuid}&content=${encodeURI(JSON.stringify(res))}${requestEnd}`)
     }
     if (type == "spouse") {
@@ -394,7 +394,7 @@ function selectExisting() {
     document.getElementById("submitButton").style.display = 'none';
 }
 function existingSubmit() {
-    let person = tree.find((element) => element.id == document.getElementById("selectExisting").value);
+    let person = tree.find((element) => element.id == document.getElementById("selectFocus").value);
     console.log(person)
     if (type == "parents") {
         if (res.parent1Id == null || res.paren1Id == "") {
@@ -449,7 +449,7 @@ async function main() {
     res = await fetch(`https://familytree.loophole.site/getProfile?token=${token}&profileUuid=${uuid}${requestEnd}`)
         .then(response => response.json())
     res = res[0];
-    document.title = "FT | " + res.name;
+    document.title = res.name;
     addPersonPopup = await (await fetch("../data/addPersonPopup.html")).text()
     document.getElementById("popup1").innerHTML = addPersonPopup;
     document.getElementById("profile-pic").src = res.pic ? res.pic : document.getElementById("profile-pic").src
@@ -464,8 +464,8 @@ async function main() {
     document.getElementById("deathPlace").textContent = res.deathPlace
     document.getElementById("deathCause").textContent = res.causeOfDeath
     document.getElementById("burialPlace").textContent = res.burialPlace
-    document.getElementById("writingText").textContent = res.writing.replaceAll("%79", "+")
-    document.getElementById("sourcesText").textContent = res.sources.replaceAll("%79", "+")
+    document.getElementById("writingText").textContent = res.writing.replaceAll("%79", "+").replaceAll("%89", "&")
+    document.getElementById("sourcesText").textContent = res.sources.replaceAll("%79", "+").replaceAll("%89", "&")
     document.getElementById("gender").textContent = res.gender.charAt(0).toUpperCase() + res.gender.slice(1)
 
 }
