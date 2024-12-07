@@ -609,7 +609,7 @@ function personToRelativeLabel(person) {
     return `<div class="relative" style="background-color: ${person.gender == "male" ? "#00c4f3" : "#ff72af"};">
         <div class="row">
             <p style="font-size: 80%; margin-bottom: 0; margin-left: 5%;" onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p>
-            <img src="/img/trash.png" style="max-width: 20%; margin-left:auto;" onclick="deleteConnectionPopup('${person.id}')"></img>
+            <img src="/img/trash.png" style="max-width: 20%; margin-left:auto; height:fit-content;" onclick="deleteConnectionPopup('${person.id}')"></img>
         </div>
         <p style="font-size: 70%; margin-top: 0; margin-left: 5%;">${personToLifespan(person)}</p>
     </div>`
