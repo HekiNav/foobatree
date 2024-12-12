@@ -93,9 +93,16 @@ async function register() {
     username = usernameNewAccount.value
     password = registerPassword1.value
     data = await (await fetch(`https://familytree.loophole.site/register?username=${username}&password=${password}`)).text()
-    if(data[0] == "{"){
+    console.log(data)
+    if(data[0] != "{"){
         errorText2.style.visibility = "visible"
         errorText2.textContent = "Error"
+        return 0
+    }
+    const parsed = JSON.parse(data)
+    if (parsed.error) {
+        errorText2.style.visibility = "visible"
+        errorText2.textContent = parsed.desc == "The provided argument already exists." ? "Username is taken" : parsed.desc
         return 0
     }
     document.cookie = `token=${data}`
