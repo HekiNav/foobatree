@@ -4,27 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login | Foobatree</title>
     <link rel="shortcut icon" href="/img/foobatreeicon.png" type="image/x-icon">
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 </head>
 
 <body>
     <div id="background">
         <div class="page-content">
+            <span id="online" class="online" title="FoobaTree API status: loading"></span>
             <img src="./img/foobatree.png" id="logo">
             <div id="login" class="login">
                 <h1>Login</h1>
-                <button id="registerPageButton">Create a new account</button>
+                <button id="registerPageButton">Create a new account instead</button>
                 <p class="incorrect" id="incorrect1"></p>
                 <h3>Username</h3>
                 <input class="input" type="text" placeholder="Fooba1" id="username">
                 <h3>Password</h3>
                 <input class="input" type="password" placeholder="" id="password">
-                <p></p>
-                <br>
                 <button id="loginButton">Submit</button>
-                <span id="onlineL"
-                    class="online"></span>
             </div>
             <div id="register" class="register">
                 <h1>Register</h1>
@@ -36,19 +34,11 @@
                 <input class="input" type="password" placeholder="" id="password1">
                 <h3>Retype password</h3>
                 <input class="input" type="password" placeholder="" id="password2">
-                <p></p>
-                <br>
-                <span>
-                    <button id="registerButton">Submit</button>
-                    <span id="onlineR"
-                        class="online"></span>
-                </span>
-
+                <button id="registerButton">Submit</button>
             </div>
         </div>
     </div>
 </body>
-<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 <script src="main.js"></script>
 <link rel="stylesheet" href="style.css">
 

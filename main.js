@@ -1,4 +1,3 @@
-document.title = "FoobaTree | Login"
 
 const loginButton = document.getElementById("loginButton")
 const registerButton = document.getElementById("registerButton")
@@ -18,17 +17,19 @@ function setup() {
     loginPageButton.addEventListener("click", loginPage)
     registerPageButton.addEventListener("click", registerPage)
 
+    loginPage()
+
     checkOnline();
 }
 
 async function checkOnline() {
     try {
         res = await fetch(`https://familytree.loophole.site/helloworld`, { signal: AbortSignal.timeout(1000)})
-        document.getElementById("onlineL").style.backgroundColor = 'green';
-        document.getElementById("onlineR").style.backgroundColor = 'green';
+        document.getElementById("online").style.backgroundColor = 'green';
+        document.getElementById("online").title = "FoobaTree API status: online"
     }catch (e){
-        document.getElementById("onlineL").style.backgroundColor = 'red';
-        document.getElementById("onlineR").style.backgroundColor = 'red';
+        document.getElementById("online").style.backgroundColor = 'red';
+        document.getElementById("online").title = "FoobaTree API status: offline"
     }
 }
 
@@ -45,10 +46,14 @@ async function auth() {
     } else {
         errorText1.style.visibility = "hidden"
         errorText1.textContent = ""
-        document.cookie = `token=${data}`
-        document.cookie = `username=${username};`;
+        /* document.cookie = `token=${data}`
+        document.cookie = `username=${username};`; */
+        localStorage.setItem("token",data)
+        localStorage.setItem("userName",username)
         console.log(data)
-        document.cookie = `treeUser=empty;path=/`
+        localStorage.setItem("treeUser","empty")
+        localStorage.setItem("path","/")
+        /* document.cookie = `treeUser=empty;path=/` */
         window.location.href = "./graph/"
     }
 
@@ -100,15 +105,15 @@ async function register() {
 }
 
 function loginPage() {
-    document.getElementById("login").style.display = "block"
-    document.getElementById("register").style.display = "none"
+    document.getElementById("login").hidden = false
+    document.getElementById("register").hidden = true
     errorText2.style.visibility = "hidden"
     errorText1.style.visibility = "visible"
 }
 
 function registerPage() {
-    document.getElementById("login").style.display = "none"
-    document.getElementById("register").style.display = "block"
+    document.getElementById("login").hidden = true
+    document.getElementById("register").hidden = false
     errorText1.style.visibility = "hidden"
     errorText2.style.visibility = "visible"
 }

@@ -5,7 +5,12 @@ body {
 html * {
     font-family: Montserrat !important;
 }
-
+h3 {
+    margin: 0;
+}
+h1 {
+    margin: 5% 0 0 0;
+}
 #background {
     height: 100vh;
     display: flex;
@@ -26,18 +31,17 @@ html * {
     text-align: center;
     font-family: Arial, sans-serif;
     overflow-y: hidden;
-    margin-bottom: 10vh;
-
+    padding-top: 2%;
 }
 
-.login {
-    display: block;
+.login,.register{
+    display: flex;
+    flex-direction: column;
     overflow-y: hidden;
-}
-
-.register {
-    display: none;
-    overflow-y: hidden;
+    flex-wrap: wrap;
+    height: 40vh;
+    align-content: space-around;
+    justify-content: space-between;
 }
 
 .submit {
@@ -53,6 +57,7 @@ html * {
     font-weight: bold;
     /*https://thedesigncreative.co.uk/why-you-shouldnt-use-vw-vh-or-px-for-font-sizing-a-comprehensive-guide/*/
     font-size: 3vh;
+    margin: 0;
 }
 
 .online {
@@ -60,7 +65,11 @@ html * {
   width: 25px;
   background-color: #bbb;
   border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  margin-left: 10%;
+  float: right;
+}
+
+
+
+*[hidden] {
+    display: none;
 }

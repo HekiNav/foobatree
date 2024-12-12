@@ -82,7 +82,8 @@ function submitForm() {
         parent2Id: null,
     })
 
-    document.cookie = `target=${uuid};max-age=1431989812894908`
+    //document.cookie = `target=${uuid};max-age=1431989812894908`
+    localStorage.setItem("target", uuid)
 
     const ele = document.getElementsByClassName('popup-input');
     for (var i = 0; i < ele.length; i++) {
@@ -115,14 +116,16 @@ function focusPopup() {
 //sets the trees focus to a person
 function setTarget() {
     const value = document.getElementById("selectFocus").value
-    document.cookie = `target=${value};max-age=1431989812894908`
+    localStorage.setItem("target", value)
+    //document.cookie = `target=${value};max-age=1431989812894908`
     location.reload()
 }
 //gets a cookie by its key
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
+    return localStorage.getItem(name)
+    /* const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length === 2) return parts.pop().split(';').shift(); */
 }
 //opens the popup where you can share your tree to others
 function shareTreePopup() {
@@ -131,7 +134,7 @@ function shareTreePopup() {
     <p>Input username of person to share tree to</p>
     <h3 id="error"></h3>
     <input class="popup-input" type="text" id="shareInput">
-    <p></p>
+    <p></p>i
     <button type="button" id="sharetree" onclick=shareTree()>Share</button>
 </div>`
 }
@@ -167,12 +170,15 @@ async function shareTree() {
 function openSharedTree() {
     const treeUser = document.getElementById("sharedList").value
     console.log(treeUser)
-    document.cookie = `treeUser=${treeUser};path=/`
+    //document.cookie = `treeUser=${treeUser};path=/`
+    localStorage.setItem("treeUser",treeUser)
+    localStorage.setItem("path","/")
     location.reload()
 }
 //opens your own tree
 function ownTree() {
-    document.cookie = `treeUser=empty;path=/`
+    localStorage.setItem("treeUser","empty")
+    localStorage.setItem("path","/")
     location.reload()
 }
 
@@ -475,7 +481,7 @@ function nodeOnScreen(id) {
 function idToLabel(uuid) {
     const person = idToData(uuid)
     return `<div style="min-height: 200px; width: 160px;">
-    <img style="width: 120px; min-height: 100px; align-self: center; display: block; margin-left: auto;margin-right: auto;" src="${person.pic ? person.pic : "https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg="}"></img>
+    <img style="width: 80%;  align-self: center; display: block; margin-left: auto;margin-right: auto;" src="${person.pic ? person.pic : "https://media.istockphoto.com/id/1451587807/vector/user-profile-icon-vector-avatar-or-person-icon-profile-picture-portrait-symbol-vector.jpg?s=612x612&w=0&k=20&c=yDJ4ITX1cHMh25Lt1vI1zBn2cAKKAlByHBvPJ8gEiIg="}"></img>
     <p onclick="openPerson('${person.id}', '${requestEnd}')">${person.name}</p> ${personToLifespan(person)} 
     ${person.lore ? `<p style="font-style: italic;">${person.lore}</p>` : ""}
     ${toShowParentsButton(person) ? `<input type='button' id="parentButton" onclick="graphParents('${person.id}')" value="P">` : ""} 

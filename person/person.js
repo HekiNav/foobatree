@@ -46,9 +46,10 @@ document.getElementById('focusInput').addEventListener('input', function (e) {
 });
 
 function getCookie(name) {
-    const value = `; ${document.cookie}`;
+    return localStorage.getItem(name)
+    /* const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length === 2) return parts.pop().split(';').shift(); */
 }
 
 //opens parent adding popup
